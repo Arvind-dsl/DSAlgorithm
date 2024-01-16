@@ -1,4 +1,7 @@
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Qone {
 
@@ -40,6 +43,7 @@ public class Qone {
 
     // Lexicographic ordering is when strings alpha char in a string are compared. like names ordering in attendance register in school.
     // compateTo() of string compares the strings Lexicographically
+    // Below function is unrelated to above statement.
     public void randomTester() {
         String in = "abcdefghijk lm no p";
         for (char c = 'a'; c <= 'z'; c++) {
@@ -47,6 +51,51 @@ public class Qone {
             System.out.println(" " + c);
         }
         System.out.println(in.indexOf("$"));
+    }
+
+    // Finding the missing number in an unsorted array
+    // Step 1 - sort the input array
+    // Step 2 - add the elements in array to HasSet (use Arrays.asList(arrayInput) method to create hashset)
+    // Step 3 - in a loop from 0 to highest element in input array (last element value in sorted array)
+    // Step 4 - with in the loop check if hashset contains ith value, if not, print absent and ith value, else print ith value
+
+    public void missingNumber(Integer[] inputIntegers){
+        
+        Arrays.sort(inputIntegers);
+        HashSet<Integer> input = new HashSet<>(Arrays.asList(inputIntegers));
+        int end = inputIntegers[inputIntegers.length - 1];
+
+        for(int i = 0; i <= end; i++) {
+            if (input.contains(i)) {
+                System.out.println(i);
+            }
+            else System.out.println("missing number: " + i);
+        }
+    }
+
+    public void missingNumberWithoutSet(Integer[] inputInteger){
+        Arrays.sort(inputInteger);
+        int size = inputInteger.length - 1;
+        if (inputInteger[0] >= 2) {
+            System.out.println("Numbers misisng from " + 0 + " to " + (inputInteger[0] - 1));
+            System.out.println(inputInteger[0]);         
+        } else if (inputInteger[0] > 0 && inputInteger[0] < 2) {
+            System.out.println("Number missing: 0");
+            System.out.println(inputInteger[0]);         
+        } else System.out.println(inputInteger[0]);
+
+        int diff = 0;
+
+        for(int i = 1; i <= size; i++){
+            diff = inputInteger[i] - inputInteger[i - 1];
+            if (diff > 2) {
+                System.out.println("Numbers misisng from " + (inputInteger[i] - (diff - 1)) + " to " + (inputInteger[i] - 1));   
+                System.out.println(inputInteger[i]);             
+            } else if (diff == 2){
+                System.out.println("Number missing: " + (inputInteger[i]-1));
+                System.out.println(inputInteger[i]);         
+            } else System.out.println(inputInteger[i]);
+        }
     }
     
 }
