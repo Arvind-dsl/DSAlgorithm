@@ -1,7 +1,10 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
+
 
 public class Qone {
 
@@ -73,6 +76,16 @@ public class Qone {
         }
     }
 
+    // Finding the missing number in an unsorted array - with space complexity of N
+    // Step 1 - sort the input array
+    // Step 2 - Check for the first element and see if it is greater than 2, print Numbers missing from 0 to input[0]-1
+    //          if it is greater than 0 but less than 2, print number missing 0 and print input[0]
+    //          else print input[0] 
+    // Step 3 - create an integer variable diff and initialise it with 0
+    // Step 4 - In a loop spanning the size of the array (length-1), perform difference between nth element and (n-1)th element and store it in diff
+    //          if diff is greater than 0, then print Numbers missing from input[i] - (diff-1) to input[i]-1 and print input[i]
+    //          if diff is equal to 2, then pring Number missing input[i] - 1 and print input[i]
+    //          else print input[i]
     public void missingNumberWithoutSet(Integer[] inputInteger){
         Arrays.sort(inputInteger);
         int size = inputInteger.length - 1;
@@ -96,6 +109,31 @@ public class Qone {
                 System.out.println(inputInteger[i]);         
             } else System.out.println(inputInteger[i]);
         }
+    }
+
+    // Finding the missing number in an unsorted array - Without sorting
+    // Step 1 - Find the max value in the array, in the same loop, add values of the array to a linkedlist
+    // Step 2 - loop from 0 to max value found from the array, check if the current value is present in linkedlist
+    //          If not present, add tje current value the same linkedlist.
+    //          If present, remove the current value from the linkedlist.
+    // NOTE - no sorting is choosen here but the output will be sorted.
+    public void missingNumberUsingListWithoutSorting(Integer[] inputInteger) {
+        int maxValue = 0;
+        LinkedList<Integer> list = new LinkedList<>();
+        for (Integer integer : inputInteger) {
+            if (maxValue < integer) maxValue = integer;
+            list.add(integer);
+        }
+
+        for(int i = 0; i <= maxValue; i++){
+            if (!list.contains(i)) {
+                list.add(i);
+            } else list.removeFirstOccurrence(i);
+        }
+
+        System.out.println(list.toString());
+
+
     }
     
 }
